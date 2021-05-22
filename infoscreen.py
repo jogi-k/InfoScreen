@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 from time import sleep
 from datetime import datetime
 from gpiozero import MotionSensor
@@ -14,6 +15,11 @@ def detectMotion():
     #print(datetime.now())
     #print("Intruder alert")
     sleep(5)
+
+
+os.system("xset s noblank")
+os.system("xset s off")
+os.system("xset -dpms")
 
 pir = MotionSensor(4)
 
