@@ -1,2 +1,2 @@
 #!/bin/bash
-chromium --kiosk 192.168.3.1/uhr http://192.168.3.1/meteoblue  192.168.3.70 https://datawrapper.dwcdn.net/tRZc6/5/ 
+chromium --kiosk http://192.168.3.1/uhr http://192.168.3.1/meteoblue  http://192.168.3.70 https://datawrapper.dwcdn.net/tRZc6/5/ 
