@@ -23,3 +23,19 @@ see : https://blog.gordonturner.com/2019/07/23/raspberry-pi-switch-chromium-brow
 
 * Some more general info also available here:
 * https://www.elektronik-kompendium.de/sites/raspberry-pi/2111101.htm
+
+
+## The Hardware, as of now
+
+![](fritzing/infoscreen_bb.png)
+
+
+
+![](fritzing/infoscreen_schem.png)
+
+
+
+The PIR-Module (from Bastelgarage)
+
+![](https://www.bastelgarage.ch/image/cache/catalog/Artikel/420441-420450/420448-4-800x800.jpg)
+
