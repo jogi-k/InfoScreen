@@ -1,2 +1,9 @@
 #!/bin/bash
-chromium --kiosk http://192.168.3.1/uhr http://192.168.3.1/meteoblue  http://192.168.3.70 https://datawrapper.dwcdn.net/tRZc6/5/ 
+chromium --kiosk http://192.168.3.1/uhr http://192.168.3.1/meteoblue  http://192.168.3.70 &
+
+
+while [ True ] ; do
+	/usr/bin/xdotool key Ctrl+Tab
+	sleep 10
+done 
+
