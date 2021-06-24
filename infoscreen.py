@@ -1,29 +1,39 @@
 #!/usr/bin/python3
-from time import sleep
+import time 
 from datetime import datetime
 from gpiozero import MotionSensor
 import os
 
-hdmi_on="vcgencmd display_power 1"
-hdmi_off="vcgencmd display_power 0"
 
 
-def detectMotion():
-    os.system(hdmi_off)
-    pir.wait_for_motion()
-    os.system(hdmi_on)
-    #print(datetime.now())
-    #print("Intruder alert")
-    sleep(5)
 
+BACKLIGHT = '/sys/class/backlight/rpi_backlight/bl_power'
+ON = 0
+OFF = 1
+TIME_OUT = 5
 
-os.system("xset s noblank")
-os.system("xset s off")
-os.system("xset -dpms")
+def backlightOn():
+    with open(BACKLIGHT, 'w') as export:
+    	export.write(str(ON))
+
+def backlightOff():
+    with open(BACKLIGHT, 'w') as export:
+    	export.write(str(OFF))
+
 
 pir = MotionSensor(4)
+backlightOn()
+endtime = time.time() + TIME_OUT
 
 while True:
-    detectMotion()
+    if pir.motion_detected :
+        backlightOn()
+	print("Motion detected")
+	endtime = time.time() + TIME_OUT
+	time.sleep(1)
+    currtime = time.time()
+    if currtime > endtime :
+	backlightOff()
+
 
 

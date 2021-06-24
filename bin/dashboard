@@ -1,9 +1,48 @@
-#!/bin/bash
-chromium --kiosk http://192.168.3.1/uhr http://192.168.3.1/meteoblue  http://192.168.3.70 &
+#!/usr/bin/python3
+import time 
+from datetime import datetime
+from gpiozero import MotionSensor
+import os
+import subprocess
 
 
-while [ True ] ; do
-	/usr/bin/xdotool key Ctrl+Tab
-	sleep 10
-done 
+BACKLIGHT = '/sys/class/backlight/rpi_backlight/bl_power'
+ON = 0
+OFF = 1
+
+TIME_OUT = 60
+TAB_TIME = 7
+
+def backlightOn():
+    with open(BACKLIGHT, 'w') as export:
+    	export.write(str(ON))
+
+def backlightOff():
+    with open(BACKLIGHT, 'w') as export:
+    	export.write(str(OFF))
+
+response = 1
+while response != 0 :
+	response = os.system("ping -c 1 192.168.3.1")
+	time.sleep(1)
+
+subprocess.Popen(["chromium","--kiosk","http://192.168.3.1/uhr","http://192.168.3.1/meteoblue","http://192.168.3.70"])
+
+pir = MotionSensor(4)
+backlightOn()
+endtime = time.time() + TIME_OUT
+tabtime = time.time() + TAB_TIME
+
+while True:
+    if pir.motion_detected :
+        backlightOn()
+        print("Motion detected")
+        endtime = time.time() + TIME_OUT
+        time.sleep(1)
+    currtime = time.time()
+    if currtime > endtime :
+        backlightOff()
+    if currtime > tabtime :
+        os.system("/usr/bin/xdotool key Ctrl+Tab")
+        tabtime = time.time() + TAB_TIME
 
