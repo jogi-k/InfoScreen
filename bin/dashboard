@@ -26,13 +26,14 @@ while response != 0 :
 	response = os.system("ping -c 1 192.168.3.1")
 	time.sleep(1)
 
+subprocess.Popen(["unclutter","-idle","0.01","-root"])
 subprocess.Popen(["chromium","--kiosk","http://192.168.3.1/uhr","http://192.168.3.1/meteoblue","http://192.168.3.70"])
 
 pir = MotionSensor(4)
 backlightOn()
 endtime = time.time() + TIME_OUT
 tabtime = time.time() + TAB_TIME
-
+tabcount = 0
 while True:
     if pir.motion_detected :
         backlightOn()
@@ -43,6 +44,12 @@ while True:
     if currtime > endtime :
         backlightOff()
     if currtime > tabtime :
+        # Send Ctrl Tab for next Tab in Chromium
         os.system("/usr/bin/xdotool key Ctrl+Tab")
         tabtime = time.time() + TAB_TIME
+        tabcount = tabcount + 1
+        if tabcount % 100 == 0 or tabcount % 100 == 1 or tabcount % 100 == 2:
+            # Send Ctrl F5 for reload Tab 
+            time.sleep(0.2)
+            os.system("/usr/bin/xdotool key Ctrl+F5")
 
