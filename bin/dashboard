@@ -4,7 +4,7 @@ from datetime import datetime
 from gpiozero import MotionSensor
 import os
 import subprocess
-
+import logging
 
 BACKLIGHT = '/sys/class/backlight/rpi_backlight/bl_power'
 ON = 0
@@ -15,12 +15,15 @@ TAB_TIME = 7
 
 def backlightOn():
     with open(BACKLIGHT, 'w') as export:
-    	export.write(str(ON))
+        logging.info('Backlight on') 
+        export.write(str(ON))
 
 def backlightOff():
     with open(BACKLIGHT, 'w') as export:
-    	export.write(str(OFF))
+        logging.info('Backlight off') 
+        export.write(str(OFF))
 
+logging.basicConfig(level=logging.INFO)
 response = 1
 while response != 0 :
 	response = os.system("ping -c 1 192.168.3.1")
@@ -28,21 +31,31 @@ while response != 0 :
 
 subprocess.Popen(["unclutter","-idle","0.01","-root"])
 subprocess.Popen(["chromium","--kiosk","http://192.168.3.1/uhr","http://192.168.3.1/meteoblue","http://192.168.3.70"])
+# uhr auf zaphod : Datum / Uhrzeit und  Wetter-Zusammenfassung
+# meteoblue auf zaphod: Brunnen
+# meteoblue1 auf zaphod: Paris
+#subprocess.Popen(["chromium","--kiosk","http://192.168.3.1/uhr","http://192.168.3.1/meteoblue","http://192.168.3.1/meteoblue1","http://192.168.3.70"])
 
 pir = MotionSensor(4)
 backlightOn()
 endtime = time.time() + TIME_OUT
 tabtime = time.time() + TAB_TIME
 tabcount = 0
+timer_running=False
 while True:
     if pir.motion_detected :
         backlightOn()
         print("Motion detected")
+        logging.info('Motion detected') 
         endtime = time.time() + TIME_OUT
+        timer_running=True
         time.sleep(1)
     currtime = time.time()
-    if currtime > endtime :
-        backlightOff()
+    if timer_running == True :
+        if currtime > endtime :
+            logging.info('Timeout reached') 
+            backlightOff()
+            timer_running = False
     if currtime > tabtime :
         # Send Ctrl Tab for next Tab in Chromium
         os.system("/usr/bin/xdotool key Ctrl+Tab")
