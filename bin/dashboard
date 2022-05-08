@@ -5,6 +5,7 @@ from gpiozero import MotionSensor
 import os
 import subprocess
 import logging
+import statistics
 
 BACKLIGHT = '/sys/class/backlight/rpi_backlight/bl_power'
 ON = 0
@@ -30,11 +31,13 @@ while response != 0 :
 	time.sleep(1)
 
 subprocess.Popen(["unclutter","-idle","0.01","-root"])
-subprocess.Popen(["chromium","--kiosk","http://192.168.3.1/uhr","http://192.168.3.1/meteoblue","http://192.168.3.70"])
+#subprocess.Popen(["chromium","--kiosk","http://192.168.3.1/uhr","http://192.168.3.1/meteoblue","http://192.168.3.70" ])
+#subprocess.Popen(["chromium","--kiosk","http://192.168.3.1/uhr","http://192.168.3.1/meteoblue","http://192.168.3.70","https://camserver.ch/FullScreen.aspx?cam=p59h" ])
+#subprocess.Popen(["chromium","--kiosk","http://192.168.3.1/uhr","http://192.168.3.1/meteoblue","http://192.168.3.70" ])
 # uhr auf zaphod : Datum / Uhrzeit und  Wetter-Zusammenfassung
 # meteoblue auf zaphod: Brunnen
-# meteoblue1 auf zaphod: Paris
-#subprocess.Popen(["chromium","--kiosk","http://192.168.3.1/uhr","http://192.168.3.1/meteoblue","http://192.168.3.1/meteoblue1","http://192.168.3.70"])
+# meteoblue1 auf zaphod: Barcelona
+subprocess.Popen(["chromium","--kiosk","http://192.168.3.1/uhr","http://192.168.3.1/meteoblue","http://192.168.3.1/meteoblue1","http://192.168.3.70"])
 
 pir = MotionSensor(4)
 backlightOn()
@@ -49,7 +52,7 @@ while True:
         logging.info('Motion detected') 
         endtime = time.time() + TIME_OUT
         timer_running=True
-        time.sleep(1)
+        time.sleep(2)
     currtime = time.time()
     if timer_running == True :
         if currtime > endtime :
@@ -61,7 +64,7 @@ while True:
         os.system("/usr/bin/xdotool key Ctrl+Tab")
         tabtime = time.time() + TAB_TIME
         tabcount = tabcount + 1
-        if tabcount % 100 == 0 or tabcount % 100 == 1 or tabcount % 100 == 2:
+        if tabcount % 100 == 0 or tabcount % 100 == 1 or tabcount % 100 == 2  or tabcount % 100 == 3 :
             # Send Ctrl F5 for reload Tab 
             time.sleep(0.2)
             os.system("/usr/bin/xdotool key Ctrl+F5")
