@@ -31,13 +31,15 @@ while response != 0 :
 	time.sleep(1)
 
 subprocess.Popen(["unclutter","-idle","0.01","-root"])
-#subprocess.Popen(["chromium","--kiosk","http://192.168.3.1/uhr","http://192.168.3.1/meteoblue","http://192.168.3.70" ])
+
+# Standard : Overview (Uhr), Weather at home , PV Overview 
+subprocess.Popen(["chromium","--kiosk","http://192.168.3.1/uhr","http://192.168.3.1/meteoblue","http://192.168.3.70" ])
+
+# Winter : Overview (Uhr), Weather at home , PV Overview , Webcam 
 #subprocess.Popen(["chromium","--kiosk","http://192.168.3.1/uhr","http://192.168.3.1/meteoblue","http://192.168.3.70","https://camserver.ch/FullScreen.aspx?cam=p59h" ])
-#subprocess.Popen(["chromium","--kiosk","http://192.168.3.1/uhr","http://192.168.3.1/meteoblue","http://192.168.3.70" ])
-# uhr auf zaphod : Datum / Uhrzeit und  Wetter-Zusammenfassung
-# meteoblue auf zaphod: Brunnen
-# meteoblue1 auf zaphod: Barcelona
-subprocess.Popen(["chromium","--kiosk","http://192.168.3.1/uhr","http://192.168.3.1/meteoblue","http://192.168.3.1/meteoblue1","http://192.168.3.70"])
+
+# Vacation-Time : Overview (Uhr), Weather at home , Weather at destination , PV Overview 
+#subprocess.Popen(["chromium","--kiosk","http://192.168.3.1/uhr","http://192.168.3.1/meteoblue","http://192.168.3.1/meteoblue1","http://192.168.3.70"])
 
 pir = MotionSensor(4)
 backlightOn()
