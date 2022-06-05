@@ -1,0 +1,8 @@
+#!/bin/bash
+
+python3 -m http.server 8080  --directory ../uhr/ &
+python3 -m http.server 8081  --directory ../meteoblue/ &
+python3 -m http.server 8082  --directory ../meteoblue1/ &
+python3 dashboard
+
+
