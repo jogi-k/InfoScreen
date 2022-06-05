@@ -1,8 +1,10 @@
 #!/bin/bash
 
-python3 -m http.server 8080  --directory ../uhr/ &
-python3 -m http.server 8081  --directory ../meteoblue/ &
-python3 -m http.server 8082  --directory ../meteoblue1/ &
-python3 dashboard
+SCRIPT_DIR=$( cd ${0%/*} && pwd -P )
+
+python3 -m http.server 8080  --directory ${SCRIPT_DIR}/../uhr/ &
+python3 -m http.server 8081  --directory ${SCRIPT_DIR}/../meteoblue/ &
+python3 -m http.server 8082  --directory ${SCRIPT_DIR}/../meteoblue1/ &
+python3 ${SCRIPT_DIR}/dashboard
 
 
