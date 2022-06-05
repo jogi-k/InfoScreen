@@ -33,7 +33,7 @@ while response != 0 :
 subprocess.Popen(["unclutter","-idle","0.01","-root"])
 
 # Standard : Overview (Uhr), Weather at home , PV Overview 
-subprocess.Popen(["chromium","--kiosk","localhost:8080","localhost:8081","http://192.168.3.70" ])
+subprocess.Popen(["chromium","--kiosk","http://localhost:8080","http://localhost:8081","http://192.168.3.70" ])
 
 # Winter : Overview (Uhr), Weather at home , PV Overview , Webcam 
 #subprocess.Popen(["chromium","--kiosk","http://192.168.3.1/uhr","http://192.168.3.1/meteoblue","http://192.168.3.70","https://camserver.ch/FullScreen.aspx?cam=p59h" ])
