@@ -35,10 +35,13 @@ subprocess.Popen(["unclutter","-idle","0.01","-root"])
 # Standard : Overview (Uhr), Weather at home , PV Overview 
 subprocess.Popen(["chromium","--kiosk","http://localhost:8080","http://localhost:8081","http://192.168.3.70" ])
 
-# Winter : Overview (Uhr), Weather at home , PV Overview , Webcam 
+# Vacation-Time : Overview (Uhr), Weather at home , Weather at destination , PV Overview 
+# subprocess.Popen(["chromium","--kiosk","http://localhost:8080","http://localhost:8081","http://localhost:8082","http://192.168.3.70" ])
+
+# Winter (OLD) : Overview (Uhr), Weather at home , PV Overview , Webcam 
 #subprocess.Popen(["chromium","--kiosk","http://192.168.3.1/uhr","http://192.168.3.1/meteoblue","http://192.168.3.70","https://camserver.ch/FullScreen.aspx?cam=p59h" ])
 
-# Vacation-Time : Overview (Uhr), Weather at home , Weather at destination , PV Overview 
+# Vacation-Time (OLD) : Overview (Uhr), Weather at home , Weather at destination , PV Overview 
 #subprocess.Popen(["chromium","--kiosk","http://192.168.3.1/uhr","http://192.168.3.1/meteoblue","http://192.168.3.1/meteoblue1","http://192.168.3.70"])
 
 pir = MotionSensor(4)
