@@ -24,7 +24,7 @@ def backlightOff():
         logging.info('Backlight off') 
         export.write(str(OFF))
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(filename="infoscreen.log", level=logging.INFO, format='%(asctime)s %(message)s')
 response = 1
 while response != 0 :
 	response = os.system("ping -c 1 192.168.3.1")
@@ -35,16 +35,20 @@ subprocess.Popen(["unclutter","-idle","0.01","-root"])
 # Standard : Overview (Uhr), Weather at home , PV Overview 
 subprocess.Popen(["chromium","--kiosk","http://localhost:8080","http://localhost:8081","http://192.168.3.70" ])
 
-# Vacation-Time : Overview (Uhr), Weather at home , Weather at destination , PV Overview 
-# subprocess.Popen(["chromium","--kiosk","http://localhost:8080","http://localhost:8081","http://localhost:8082","http://192.168.3.70" ])
+# Winter (New) : Overview (Uhr), Weather at home , PV Overview , Webcam Stoos
+#subprocess.Popen(["chromium","--kiosk","http://localhost:8080","http://localhost:8081","http://192.168.3.70" ,"https://camserver.ch/FullScreen.aspx?cam=p59h"])
 
-# Winter (OLD) : Overview (Uhr), Weather at home , PV Overview , Webcam 
-#subprocess.Popen(["chromium","--kiosk","http://192.168.3.1/uhr","http://192.168.3.1/meteoblue","http://192.168.3.70","https://camserver.ch/FullScreen.aspx?cam=p59h" ])
+# Winter (Ladurns) : Overview (Uhr), Weather at home , Weather in Ladurns , PV Overview , Webcam Ladurns
+#subprocess.Popen(["chromium","--kiosk","http://localhost:8080","http://localhost:8081","http://localhost:8082","http://192.168.3.70" ,"https://ladurns.panomax.com/"])
 
-# Vacation-Time (OLD) : Overview (Uhr), Weather at home , Weather at destination , PV Overview 
-#subprocess.Popen(["chromium","--kiosk","http://192.168.3.1/uhr","http://192.168.3.1/meteoblue","http://192.168.3.1/meteoblue1","http://192.168.3.70"])
+# Winter (Laax) : Overview (Uhr), Weather at home , Weather in Ladurns , PV Overview , Webcam Ladurns
+#subprocess.Popen(["chromium","--kiosk","http://localhost:8080","http://localhost:8081","http://192.168.3.70" ,"https://laax.roundshot.com/crap-sogn-gion-plaun/#"])
 
-pir = MotionSensor(4)
+
+
+logging.info('===== Starting new run =====') 
+
+pir = MotionSensor(4, queue_len=10)
 backlightOn()
 endtime = time.time() + TIME_OUT
 tabtime = time.time() + TAB_TIME
@@ -53,7 +57,6 @@ timer_running=False
 while True:
     if pir.motion_detected :
         backlightOn()
-        print("Motion detected")
         logging.info('Motion detected') 
         endtime = time.time() + TIME_OUT
         timer_running=True
@@ -71,6 +74,8 @@ while True:
         tabcount = tabcount + 1
         if tabcount % 100 == 0 or tabcount % 100 == 1 or tabcount % 100 == 2  or tabcount % 100 == 3 :
             # Send Ctrl F5 for reload Tab 
+            logging.info('TAB-Timeout reached, sending new tab') 
             time.sleep(0.2)
             os.system("/usr/bin/xdotool key Ctrl+F5")
+    time.sleep(0.2)
 
