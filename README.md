@@ -43,8 +43,11 @@ The PIR-Module (from Bastelgarage)
 # Installation
 
 1. Install Raspberry-Pi OS
-2. clone this repo
-3. copy the file preparation/backlight-permission-rules to /etc/udev/rules.d/backlight-permission-rules , this allows non-root-users to control the backlight of the display
+2. Install clutter : sudp apt install unclutter
+3. Install chromium : sudo apt install chromium
+4. Install xdotool : sudo apt install xdotool
+5. clone this repo
+6. copy the file preparation/backlight-permission-rules to /etc/udev/rules.d/backlight-permission-rules , this allows non-root-users to control the backlight of the display
    (see also  https://linustechtips.com/topic/1246132-allow-non-root-user-to-access-sysclassbacklight/?do=findComment&comment=14015740 and https://linustechtips.com/topic/1246132-allow-non-root-user-to-access-sysclassbacklight/?do=findComment&comment=14015728 )
-4. copy the file preparation/MyDashboard to /etc/init.d/. , this will activate the three simple python http-servers, responsible for weather and clock in bin/start_dashboard
-5. I have no clue how the other script in bin/ , called dashboard is triggered , appearantly NOT from the start_dashboard 
+7. copy the file preparation/MyDashboard to /etc/init.d/. , this will activate the three simple python http-servers, responsible for weather and clock in bin/start_dashboard
+8. I have no clue how the other script in bin/ , called dashboard is triggered , appearantly NOT from the start_dashboard 
