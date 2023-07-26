@@ -1,0 +1,16 @@
+#!/usr/bin/python3
+
+import os
+import psutil
+
+this_proc = psutil.Process(os.getpid())
+print(this_proc.pid)
+print(this_proc.name())
+print(this_proc.exe())
+next_proc = this_proc
+while next_proc.pid > 1:
+	next_proc = psutil.Process(next_proc.ppid())
+	print("---------------")
+	print(next_proc.pid)
+	print(next_proc.name())
+	print(next_proc.exe())
