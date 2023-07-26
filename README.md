@@ -52,4 +52,4 @@ The PIR-Module (from Bastelgarage)
 7. copy the file preparation/MyDashboard to /etc/init.d/. 
 8. execute ```sudo update-rc.d MyDashboard defaults``` this will activate the three simple python http-servers, responsible for weather and clock in bin/start_dashboard
    see therefore also : https://tutorials-raspberrypi.de/raspberry-pi-autostart-programm-skript/
-9. I have no clue how the other script in bin/ , called dashboard is triggered , appearantly NOT from the start_dashboard 
+9. copy the preparation/MyDashboard.desktop to ~/.config/autostart/. this is the second part of startup which then starts the dashboard - script in bin, doing the main-work 
