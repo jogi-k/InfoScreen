@@ -49,5 +49,7 @@ The PIR-Module (from Bastelgarage)
 5. clone this repo
 6. copy the file preparation/backlight-permission-rules to /etc/udev/rules.d/backlight-permission-rules , this allows non-root-users to control the backlight of the display
    (see also  https://linustechtips.com/topic/1246132-allow-non-root-user-to-access-sysclassbacklight/?do=findComment&comment=14015740 and https://linustechtips.com/topic/1246132-allow-non-root-user-to-access-sysclassbacklight/?do=findComment&comment=14015728 )
-7. copy the file preparation/MyDashboard to /etc/init.d/. , this will activate the three simple python http-servers, responsible for weather and clock in bin/start_dashboard
-8. I have no clue how the other script in bin/ , called dashboard is triggered , appearantly NOT from the start_dashboard 
+7. copy the file preparation/MyDashboard to /etc/init.d/. 
+8. execute ```sudo update-rc.d MyDashboard defaults``` this will activate the three simple python http-servers, responsible for weather and clock in bin/start_dashboard
+   see therefore also : https://tutorials-raspberrypi.de/raspberry-pi-autostart-programm-skript/
+9. I have no clue how the other script in bin/ , called dashboard is triggered , appearantly NOT from the start_dashboard 
