@@ -37,16 +37,20 @@ subprocess.Popen(["unclutter","-idle","5","-root"])
 logging.info('Starting chromium') 
 # Standard : Overview (Uhr), Weather at home , PV Overview 
 subprocess.Popen(["chromium","--kiosk","http://localhost:8080","http://localhost:8081","http://192.168.3.70" ])
-#subprocess.Popen(["chromium","http://localhost:8080","http://localhost:8081","http://192.168.3.70" ])
+max_tab=3
 
 # Winter (New) : Overview (Uhr), Weather at home , PV Overview , Webcam Stoos
 #subprocess.Popen(["chromium","--kiosk","http://localhost:8080","http://localhost:8081","http://192.168.3.70" ,"https://camserver.ch/FullScreen.aspx?cam=p59h"])
+#max_tab=4
 
 # Winter (Ladurns) : Overview (Uhr), Weather at home , Weather in Ladurns , PV Overview , Webcam Ladurns
 #subprocess.Popen(["chromium","--kiosk","http://localhost:8080","http://localhost:8081","http://localhost:8082","http://192.168.3.70" ,"https://ladurns.panomax.com/"])
+#max_tab=4
 
 # Winter (Laax) : Overview (Uhr), Weather at home , Weather in Ladurns , PV Overview , Webcam Ladurns
 #subprocess.Popen(["chromium","--kiosk","http://localhost:8080","http://localhost:8081","http://192.168.3.70" ,"https://laax.roundshot.com/crap-sogn-gion-plaun/#"])
+#max_tab=4
+
 time.sleep(10)
 temp_stdout=subprocess.run(['xdotool','search','--onlyvisible','chromium'],capture_output=True )
 WID=temp_stdout.stdout.decode().strip()
@@ -79,8 +83,8 @@ while True:
         temp_stdout=subprocess.run(['xdotool','search','--onlyvisible','chromium'],capture_output=True )
         WID=temp_stdout.stdout.decode().strip()
         subprocess.run(['xdotool','windowfocus',WID])
-        tab_nr = tabcount % 4 
-        my_key = "Ctrl+" + str(tab_nr)
+        tab_nr = tabcount % max_tab 
+        my_key = "Ctrl+" + str(tab_nr+1)
         subprocess.run(['xdotool','key','--window',WID,my_key])
         tabtime = time.time() + TAB_TIME
         tabcount = tabcount + 1
