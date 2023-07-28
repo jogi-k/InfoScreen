@@ -16,24 +16,28 @@ TAB_TIME = 7
 
 def backlightOn():
     with open(BACKLIGHT, 'w') as export:
-        logging.info('Backlight on') 
+        #logging.info('Backlight on') 
         export.write(str(ON))
 
 def backlightOff():
     with open(BACKLIGHT, 'w') as export:
-        logging.info('Backlight off') 
+        #logging.info('Backlight off') 
         export.write(str(OFF))
 
 logging.basicConfig(filename="infoscreen.log", level=logging.INFO, format='%(asctime)s %(message)s')
+logging.info('===== Starting new run =====') 
+logging.info('pinging zaphod (why?)') 
 response = 1
 while response != 0 :
 	response = os.system("ping -c 1 192.168.3.1")
 	time.sleep(1)
 
-subprocess.Popen(["unclutter","-idle","0.01","-root"])
+subprocess.Popen(["unclutter","-idle","5","-root"])
 
+logging.info('Starting chromium') 
 # Standard : Overview (Uhr), Weather at home , PV Overview 
 subprocess.Popen(["chromium","--kiosk","http://localhost:8080","http://localhost:8081","http://192.168.3.70" ])
+#subprocess.Popen(["chromium","http://localhost:8080","http://localhost:8081","http://192.168.3.70" ])
 
 # Winter (New) : Overview (Uhr), Weather at home , PV Overview , Webcam Stoos
 #subprocess.Popen(["chromium","--kiosk","http://localhost:8080","http://localhost:8081","http://192.168.3.70" ,"https://camserver.ch/FullScreen.aspx?cam=p59h"])
@@ -43,10 +47,12 @@ subprocess.Popen(["chromium","--kiosk","http://localhost:8080","http://localhost
 
 # Winter (Laax) : Overview (Uhr), Weather at home , Weather in Ladurns , PV Overview , Webcam Ladurns
 #subprocess.Popen(["chromium","--kiosk","http://localhost:8080","http://localhost:8081","http://192.168.3.70" ,"https://laax.roundshot.com/crap-sogn-gion-plaun/#"])
+time.sleep(10)
+temp_stdout=subprocess.run(['xdotool','search','--onlyvisible','chromium'],capture_output=True )
+WID=temp_stdout.stdout.decode().strip()
 
 
-
-logging.info('===== Starting new run =====') 
+logging.info("Found chromium-window:" + WID + ", now starting endlessloop") 
 
 pir = MotionSensor(4, queue_len=10)
 backlightOn()
@@ -57,25 +63,32 @@ timer_running=False
 while True:
     if pir.motion_detected :
         backlightOn()
-        logging.info('Motion detected') 
+        logging.info('Motion detected, light on') 
         endtime = time.time() + TIME_OUT
         timer_running=True
         time.sleep(2)
     currtime = time.time()
     if timer_running == True :
         if currtime > endtime :
-            logging.info('Timeout reached') 
+            logging.info('Timeout reached, light off') 
             backlightOff()
             timer_running = False
     if currtime > tabtime :
         # Send Ctrl Tab for next Tab in Chromium
-        os.system("/usr/bin/xdotool key Ctrl+Tab")
+        logging.info('TAB-Timeout reached, moving to next') 
+        temp_stdout=subprocess.run(['xdotool','search','--onlyvisible','chromium'],capture_output=True )
+        WID=temp_stdout.stdout.decode().strip()
+        subprocess.run(['xdotool','windowfocus',WID])
+        tab_nr = tabcount % 4 
+        my_key = "Ctrl+" + str(tab_nr)
+        subprocess.run(['xdotool','key','--window',WID,my_key])
         tabtime = time.time() + TAB_TIME
         tabcount = tabcount + 1
         if tabcount % 100 == 0 or tabcount % 100 == 1 or tabcount % 100 == 2  or tabcount % 100 == 3 :
             # Send Ctrl F5 for reload Tab 
-            logging.info('TAB-Timeout reached, sending new tab') 
+            logging.info('Sending TAB-Reload') 
             time.sleep(0.2)
-            os.system("/usr/bin/xdotool key Ctrl+F5")
+            #os.system("/usr/bin/xdotool key --window " + WID + " Ctrl+F5")
+            subprocess.run(['xdotool','key','--window',WID,'Ctrl+F5'])
     time.sleep(0.2)
 
