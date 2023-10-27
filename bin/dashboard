@@ -37,7 +37,7 @@ subprocess.Popen(["unclutter","-idle","5","-root"])
 logging.info('Starting chromium') 
 # Standard : Overview (Uhr), Weather at home , PV Overview 
 # subprocess.Popen(["chromium","--kiosk","http://localhost:8080","http://localhost:8081","http://192.168.3.70" ])
-subprocess.Popen(["chromium","--kiosk","http://localhost:8080","http://localhost:8081","http://192.168.3.70","http://localhost:8083" ])
+subprocess.Popen(["chromium","--kiosk","http://localhost:8080","http://localhost:8081","http://localhost:8083" ,"http://192.168.3.70"])
 max_tab=4
 
 # Winter (New) : Overview (Uhr), Weather at home , PV Overview , Webcam Stoos
