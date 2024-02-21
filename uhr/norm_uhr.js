@@ -1,6 +1,6 @@
 'use strict';
 (function () {
-	function uhrzeit() {
+	function update_date_and_time() {
 		var tagArray = ["Sonntag","Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag"]; 
 		var jetzt = new Date(),
 			h = jetzt.getHours(),
@@ -14,13 +14,13 @@
 		s = fuehrendeNull(s);
 		mon = fuehrendeNull(mon);
 		date = fuehrendeNull(date);
-		document.getElementById('uhr')
+		document.getElementById('main_uhr')
 			.innerHTML = h + ':' + m + ':' + s ;
-		document.getElementById('datum')
+		document.getElementById('main_datum')
 		    	.innerHTML = date + '.' + mon + '.' + jahr ;
-		document.getElementById('wotag')
+		document.getElementById('main_wotag')
 		    	.innerHTML = tagArray[weekday] ; 
-		setTimeout(uhrzeit, 500);
+		setTimeout(update_date_and_time, 1000);
 	}
 
 
@@ -29,6 +29,6 @@
 		return zahl;
 	}
 
-	document.addEventListener('DOMContentLoaded', uhrzeit);
+	document.addEventListener('DOMContentLoaded', update_date_and_time);
 }());
 

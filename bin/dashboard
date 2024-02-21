@@ -35,18 +35,26 @@ while response != 0 :
 subprocess.Popen(["unclutter","-idle","5","-root"])
 
 logging.info('Starting chromium') 
-# Standard : Overview (Uhr), Weather at home , PV Overview 
-# subprocess.Popen(["chromium","--kiosk","http://localhost:8080","http://localhost:8081","http://192.168.3.70" ])
-subprocess.Popen(["chromium","--kiosk","http://localhost:8080","http://localhost:8081","http://localhost:8083" ,"http://192.168.3.70"])
-max_tab=4
+#Standard : Overview (Uhr), Weather at home , PV Overview 
+#subprocess.Popen(["chromium","--kiosk","http://localhost:8080","http://localhost:8081","http://192.168.3.70" ])
+#subprocess.Popen(["chromium","--kiosk","http://localhost:8080","http://localhost:8081","http://localhost:8083" ,"http://192.168.3.70"])
+#subprocess.Popen(["chromium","--kiosk","http://localhost:8080","http://localhost:8081","http://localhost:8083" ,"http://192.168.3.70","http://localhost:8084" ])
+#max_tab=4
+
+# Winter (Damuels) : Overview (Uhr), Weather at home , PV Overview , Webcam Damuels
+# subprocess.Popen(["chromium","--kiosk","http://localhost:8080","http://localhost:8081","http://192.168.3.70","https://damuels.it-wms.com/wmspanoviewer.php?lang=de"]) 
+# max_tab=4
+
+# subprocess.Popen(["chromium","--kiosk","http://localhost:8080","http://localhost:8081","http://192.168.3.70"]) 
+# max_tab=3
 
 # Winter (New) : Overview (Uhr), Weather at home , PV Overview , Webcam Stoos
-#subprocess.Popen(["chromium","--kiosk","http://localhost:8080","http://localhost:8081","http://192.168.3.70" ,"https://camserver.ch/FullScreen.aspx?cam=p59h"])
-#max_tab=4
+# subprocess.Popen(["chromium","--kiosk","http://localhost:8080","http://localhost:8081","http://192.168.3.70" ,"https://camserver.ch/FullScreen.aspx?cam=p59h"])
+# max_tab=4
 
 # Winter (Ladurns) : Overview (Uhr), Weather at home , Weather in Ladurns , PV Overview , Webcam Ladurns
-#subprocess.Popen(["chromium","--kiosk","http://localhost:8080","http://localhost:8081","http://localhost:8082","http://192.168.3.70" ,"https://ladurns.panomax.com/"])
-#max_tab=4
+subprocess.Popen(["chromium","--kiosk","http://localhost:8080","http://localhost:8081","http://localhost:8082","http://192.168.3.70" ,"https://ladurns.panomax.com/"])
+max_tab=5
 
 # Winter (Laax) : Overview (Uhr), Weather at home , Weather in Ladurns , PV Overview , Webcam Ladurns
 #subprocess.Popen(["chromium","--kiosk","http://localhost:8080","http://localhost:8081","http://192.168.3.70" ,"https://laax.roundshot.com/crap-sogn-gion-plaun/#"])

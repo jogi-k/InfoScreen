@@ -11,6 +11,7 @@ python3 -m http.server 8080  --directory ${SCRIPT_DIR}/../uhr/ &
 python3 -m http.server 8081  --directory ${SCRIPT_DIR}/../meteoblue/ &
 python3 -m http.server 8082  --directory ${SCRIPT_DIR}/../meteoblue1/ &
 python3 -m http.server 8083  --directory ${SCRIPT_DIR}/../events/ &
+#python3 -m http.server 8084  --directory ${SCRIPT_DIR}/../calendar/ &
 #python3 ${SCRIPT_DIR}/dashboard
 
 
